@@ -1,0 +1,46 @@
+version: "3.8"
+services:
+  gems:
+    image: busybox
+    volumes:
+      - /challenge_gems
+  postgres:
+    image: postgres:12.3-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - challenge_postgres:/var/lib/postgresql/data
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: challenge_development
+    image: challenge_app
+    command: ./docker-entrypoint.sh
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/challenge
+      - challenge_gems:/challenge_gems
+    stdin_open: true
+    tty: true
+    depends_on:
+      - webpacker
+      - postgres
+      - gems
+    env_file:
+      - docker.env
+  webpacker:
+    image: challenge_app:latest
+    command: ./bin/webpack-dev-server
+    ports:
+      - "3035:3035"
+    volumes:
+      - .:/challenge
+      - challenge_gems:/challenge_gems
+    env_file:
+      - docker.env
+volumes:
+  challenge_gems:
+  challenge_postgres:
