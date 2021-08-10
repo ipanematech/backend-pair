@@ -1,14 +1,14 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.6.3"
+ruby "3.0.2"
 
-gem "rails",      "6.0.3.6"
+gem "rails",      "6.1.4"
 
 gem "pg",         "1.2.3"
-gem "puma",       "5.2.0"
+gem "puma",       "5.4.0"
 gem "sass-rails", "6.0.0"
-gem "webpacker",  "5.2.1"
+gem "webpacker",  "5.4.0"
 gem "turbolinks", "5.2.1"
 gem "jbuilder",   "2.11.2"
 gem "bootsnap",   "1.6.0", require: false
@@ -21,6 +21,7 @@ group :development, :test do
   gem "rubocop", require: false
   gem "rubocop-performance"
   gem "rubocop-rails"
+  gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
 end
 
 group :development do

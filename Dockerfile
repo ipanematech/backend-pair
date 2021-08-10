@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-slim AS challenge_base
+FROM ruby:3.0.2-slim AS challenge_base
 
 RUN apt-get clean && apt-get update && apt-get install -yqq --no-install-recommends curl gnupg build-essential lsof git graphviz && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
@@ -14,8 +14,8 @@ WORKDIR /challenge
 
 ENV BUNDLE_PATH /challenge_gems
 ENV PATH "$BUNDLE_PATH/bin:$PATH"
-ENV BUNDLER_VERSION 2.1.4
-RUN gem install bundler -v 2.1.4
+ENV BUNDLER_VERSION 2.2.25
+RUN gem install bundler -v 2.2.25
 RUN bundle config --global path "$BUNDLE_PATH" && bundle config --global bin "$BUNDLE_PATH/bin"
 
 FROM challenge_base AS challenge_development
